@@ -20,9 +20,6 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- GTID state at the beginning of the backup 
 --
-
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '0edcf414-3c9c-11f1-9fb6-8c1645d6f004:1-622';
-
 --
 -- Table structure for table `assignments`
 --
