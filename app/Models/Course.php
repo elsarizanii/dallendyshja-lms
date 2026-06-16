@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model {
+    public $timestamps = false;
+
     protected $fillable = ['titulli', 'pershkrimi', 'cmimi', 'category_id', 'instructor_id'];
 
     public function category() {

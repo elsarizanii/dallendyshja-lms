@@ -14,32 +14,38 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    public function run(): void
-    {
-        $user = User::create([
-            'name' => 'Profesor Filani',
-            'email' => 'profesor@scantech.com',
-            'password' => Hash::make('password'),
-            'role' => 'Staff'
-        ]);
+    public function run(): void{
+  $user = User::create([
+        'name' => 'Profesor Filani',
+        'email' => 'profesor@scantech.com',
+        'password' => Hash::make('password'),
+        'role' => 'Staff'
+    ]);
 
-        Staff::create([
-            'user_id' => $user->id,
-            'department' => 'Programim',
-            'specialization' => 'Laravel & SQL'
-        ]);
+    User::create([
+        'name' => 'Intern Manager',
+        'email' => 'admin@test.com',
+        'password' => Hash::make('password'),
+        'role' => 'Manager',
+    ]);
 
-        $cat = Category::create([
-            'emertimi' => 'Backend Development',
-            'pershkrimi' => 'Mësoni gjithçka rreth serverave.'
-        ]);
+    Staff::create([
+        'user_id' => $user->id,
+        'department' => 'Programim',
+        'specialization' => 'Laravel & SQL'
+    ]);
 
-        Course::create([
-            'titulli' => 'Kursi i parë në Laravel',
-            'pershkrimi' => 'Hapat e parë në zhvillim.',
-            'cmimi' => 99.99,
-            'category_id' => $cat->id,
-            'instructor_id' => $user->id
-        ]);
-    }
+    $cat = Category::create([
+        'emertimi' => 'Backend Development',
+        'pershkrimi' => 'Mësoni gjithçka rreth serverave.'
+    ]);
+
+    Course::create([
+        'titulli' => 'Kursi i parë në Laravel',
+        'pershkrimi' => 'Hapat e parë në zhvillim.',
+        'cmimi' => 99.99,
+        'category_id' => $cat->id,
+        'instructor_id' => $user->id
+    ]);
+}
 }
