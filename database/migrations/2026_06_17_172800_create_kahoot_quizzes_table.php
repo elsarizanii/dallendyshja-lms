@@ -10,10 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void{
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('kahoot_quizzes', function (Blueprint $table) {
             $table->id();
-            $table->string('emertimi');
-            $table->text('pershkrimi');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->string('titulli');
+            $table->string('kahoot_url')->nullable();
+            $table->string('game_pin', 20)->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('kahoot_quizzes');
     }
 };

@@ -13,12 +13,11 @@ return new class extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('assignment_id')->constrained()->onDelete('cascade');
-            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->text('content')->nullable();
-            $table->string('file_path')->nullable();
-            $table->integer('grade')->nullable();
-        $table->text('teacher_feedback')->nullable();
-        $table->timestamps();   
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('skedari_url')->nullable();
+            $table->decimal('nota', 5, 2)->nullable();
+            $table->text('koment')->nullable();
+            $table->timestamps();
         });
     }
 

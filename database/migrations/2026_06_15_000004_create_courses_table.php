@@ -13,11 +13,10 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('titulli');
-            $table->text('pershkrimi');
-            $table->decimal('cmimi', 8, 2);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-
-            $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
+            $table->text('pershkrimi')->nullable();
+            $table->decimal('cmimi', 10, 2)->default(0.00);
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
+            $table->foreignId('instructor_id')->nullable()->constrained('staff', 'user_id')->onDelete('set null');
             $table->timestamps();
         });
     }

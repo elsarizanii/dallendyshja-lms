@@ -9,21 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-{
-        Schema::create('staff', function (Blueprint $table) {
+   public function up(): void{
+
+        Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('department');
-            $table->string('specialization');
+            $table->foreignId('enrollment_id')->constrained()->onDelete('cascade');
+            $table->string('kodi_verifikimit')->unique();
+            $table->date('data_leshimit');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('certificates');
     }
 };

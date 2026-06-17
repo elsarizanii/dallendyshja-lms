@@ -10,19 +10,21 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void{
-        Schema::create('lessons', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->string('title');
+
+        Schema::create('staff', function (Blueprint $table) {
+            $table->foreignId('user_id')->primary()->constrained('users')->onDelete('cascade');
+            $table->date('hire_date')->nullable();
+            $table->string('department', 100)->nullable();
+            $table->string('specialization', 100)->nullable();
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('staff');
     }
 };
