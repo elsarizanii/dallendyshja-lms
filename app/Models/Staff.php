@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
-class Staff extends Model {
+class Staff extends Model {    
+    use HasFactory; // Shto këtë linjë brenda class-it
+
     public $timestamps = false;
 
     protected $primaryKey = 'user_id';

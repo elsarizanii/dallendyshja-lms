@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
         'password' => bcrypt('password123'),
         'role' => 'Manager',
     ]);
+    \App\Models\Staff::factory(10)->create();
+
+    \App\Models\Student::factory(50)->create();
 
     User::create([
         'name' => 'Intern Manager',
