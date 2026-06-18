@@ -10,13 +10,15 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void{
-        Schema::create('book_orders', function (Blueprint $table) {
+
+        Schema::create('inventory_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
-            $table->foreignId('book_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('inventory_item_id')->constrained('inventory_items')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->integer('quantity');
-            $table->string('status')->default('pending');
-        
+            $table->string('status')->default('requested');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book_orders');
+        Schema::dropIfExists('inventory_orders');
     }
 };

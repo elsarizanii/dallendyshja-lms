@@ -9,22 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void{
-        Schema::create('books', function (Blueprint $table) {
+ public function up(): void{
+    
+        Schema::create('course_inventory_item', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('language');
-            $table->decimal('price', 8, 2); 
-            $table->integer('stock')->default(0);
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('inventory_item_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-    });
-}
-
+        });
+    }
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('course_inventory_item');
     }
 };
