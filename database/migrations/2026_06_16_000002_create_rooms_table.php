@@ -10,9 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void{
+
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('room_name');
+            $table->integer('kapaciteti')->nullable();
+            $table->text('pershkrimi')->nullable();
             $table->timestamps();
         });
     }

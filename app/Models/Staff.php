@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
 class Staff extends Model {    
-    use HasFactory; // Shto këtë linjë brenda class-it
+    use HasFactory;
 
     public $timestamps = false;
 

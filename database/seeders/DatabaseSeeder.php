@@ -3,59 +3,40 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Staff;
 use App\Models\Category;
+use App\Models\Room;
 use App\Models\Course;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Inventory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+   public function run(): void
+{
+    \App\Models\Room::factory(5)->create();
 
-    public function run(): void{
-  $user = User::create([
-        'name' => 'Profesor Filani',
-        'email' => 'profesor@scantech.com',
-        'password' => Hash::make('password'),
-        'role' => 'Staff'
-    ]);
+    $user = \App\Models\User::updateOrCreate(
+        ['email' => 'profesor@scantech.com'],
+        [
+            'name' => 'Profesor Filani',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'Staff'
+        ]
+    );
 
-    User::factory()->create([
-        'name' => 'Manager Elsa',
-        'email' => 'admin@scantech.com',
-        'password' => bcrypt('password123'),
-        'role' => 'Manager',
-    ]);
-    \App\Models\Staff::factory(10)->create();
+    $staff = \App\Models\Staff::updateOrCreate(
+        ['user_id' => $user->id],
+        ['department' => 'Programim']
+    );
 
-    \App\Models\Student::factory(50)->create();
+    \App\Models\Inventory::factory(20)->create();
 
-    User::create([
-        'name' => 'Intern Manager',
-        'email' => 'admin@test.com',
-        'password' => Hash::make('password'),
-        'role' => 'Manager',
-    ]);
-
-    Staff::create([
-        'user_id' => $user->id,
-        'department' => 'Programim',
-        'specialization' => 'Laravel & SQL'
-    ]);
-
-    $cat = Category::create([
-        'emertimi' => 'Backend Development',
-        'pershkrimi' => 'Mësoni gjithçka rreth serverave.'
-    ]);
-
-    Course::create([
-        'titulli' => 'Kursi i parë në Laravel',
-        'pershkrimi' => 'Hapat e parë në zhvillim.',
-        'cmimi' => 99.99,
+    $cat = \App\Models\Category::firstOrCreate(['emertimi' => 'Backend']);
+    
+    \App\Models\Course::factory(10)->create([
         'category_id' => $cat->id,
-        'instructor_id' => $user->id
+        'instructor_id' => $staff->id
     ]);
 }
 }

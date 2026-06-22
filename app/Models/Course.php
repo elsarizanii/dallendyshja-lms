@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Course extends Model {
+class Course extends Model {    
+    
+    use HasFactory; 
+
     public $timestamps = false;
 
     protected $fillable = ['titulli', 'pershkrimi', 'cmimi', 'category_id', 'instructor_id'];
@@ -21,3 +25,4 @@ class Course extends Model {
         return $this->hasMany(Lesson::class);
     }
 }
+
