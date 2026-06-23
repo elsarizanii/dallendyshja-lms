@@ -39,5 +39,8 @@
     "bugs": {
         "url": "https://github.com/elsarizanii/scantech-academy/issues"
     },
-    "homepage": "https://github.com/elsarizanii/scantech-academy#readme"
+    "homepage": "https://github.com/elsarizanii/scantech-academy#readme",
+    "dependencies": {
+        "flowbite": "^4.0.2"
+    }
 }
