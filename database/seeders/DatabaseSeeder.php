@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Room;
 use App\Models\Course;
+use App\Models\Student;
 use App\Models\Inventory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ class DatabaseSeeder extends Seeder
 {
     \App\Models\Room::factory(5)->create();
 
-    $user = \App\Models\User::updateOrCreate(
+    $profesorUser = \App\Models\User::updateOrCreate(
         ['email' => 'profesor@scantech.com'],
         [
             'name' => 'Profesor Filani',
@@ -24,18 +25,38 @@ class DatabaseSeeder extends Seeder
             'role' => 'Staff'
         ]
     );
+    
+    $studentUser = \App\Models\User::updateOrCreate(
+        ['email' => 'dardan@test.com'],
+        [
+            'name' => 'Dardan Berisha',
+            'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            'role' =>'Student'
+        ]
+    );
+
+    \App\Models\Student::updateOrCreate(
+        ['user_id' => $studentUser->id],
+        [
+            'current_level' => 'A1 - Beginner',
+            'date_of_birth' =>'2005-05-15',
+            'parent_id'=> null
+        ]
+    );
+
+    echo "User and Student were added successfully! \n";
 
     $staff = \App\Models\Staff::updateOrCreate(
-        ['user_id' => $user->id],
+        ['user_id' => $profesorUser->id],
         ['department' => 'Programim']
     );
 
     \App\Models\Inventory::factory(20)->create();
 
-    $cat = \App\Models\Category::firstOrCreate(['emertimi' => 'Backend']);
+    $category = \App\Models\Category::firstOrCreate(['emertimi' => 'Backend']);
     
     \App\Models\Course::factory(10)->create([
-        'category_id' => $cat->id,
+        'category_id' => $category->id,
         'instructor_id' => $staff->id
     ]);
 }
