@@ -74,4 +74,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Room::class);
     }
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
 }
