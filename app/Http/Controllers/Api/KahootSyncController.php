@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
-use App\Models\Grade; 
+use App\Models\Grade;
+use Illuminate\Support\Facades\DB; 
 
 class KahootSyncController extends Controller
 {
@@ -14,53 +15,84 @@ class KahootSyncController extends Controller
     {
         Log::info('Kahoot Data Received:', $request->all());
 
-        if (!$request->has('email') || !$request->has('score') || !$request->has('max_points')) {
+        if (!$request->has(['email', 'score', 'max_points', 'lesson_id'])) {
             return response()->json([
-                'error' => 'Missing required fields: email, score, and max_points are mandatory.'
+                'error' => 'Missing required fields: email, score, max_points, and lesson_id are mandatory.'
             ], 400);
         }
 
         $user = User::where('email', $request->email)->first();
-
         if(!$user){
             return response()->json(['error' => 'Student was not found'], 404);
         }
 
         $pointsTaken = (float) $request->score;
         $pointsMax = (float) $request->max_points;
+        $lessonId = $request->lesson_id;
 
         if ($pointsMax <= 0) {
             return response()->json(['error' => 'Max points must be greater than 0'], 400);
         }
 
-        $percentage = ($pointsTaken / $pointsMax) * 100;
-
+        $percentage = round(($pointsTaken / $pointsMax) * 100, 2);
         $hasPassed = $percentage >= 70;
+        $activityName = 'Kahoot Quiz - Lesson ' . $lessonId;
+
+        DB::beginTransaction();
 
         try {
-            $grade = Grade::create([
-                'user_id'       => $user->id,
-                'activity_name' => 'Kahoot Quiz',
-                'raw_score'     => $pointsTaken,
-                'percentage'    => round($percentage, 2),
-                'is_passed'     => $hasPassed
-            ]);
-        } catch (\Exception $e) {
-            Log::error('Database Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Could not save grade to database'], 500);
-        }
+            $existingGrade = Grade::where('user_id', $user->id)
+                ->where('activity_name', $activityName)
+                ->first();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Data processed, normalized and saved to database',
-            'data' => [
-                'email' => $user->email,
-                'score_raw' => $pointsTaken,
-                'score_percentage' => round($percentage, 2) . '%',
-                'passed' => $hasPassed,
-                'status' => $hasPassed ? 'Passed' : 'Did not pass',
-                'record_id' => $grade->id
-            ]
-        ], 200);
-    }
+            if ($existingGrade) {
+                if ($percentage > $existingGrade->percentage) {
+                    $existingGrade->update([
+                        'raw_score'  => $pointsTaken,
+                        'percentage' => $percentage,
+                        'is_passed'  => $hasPassed,
+                    ]);
+                }
+            } else {
+                Grade::create([
+                    'user_id'       => $user->id,
+                    'activity_name' => $activityName,
+                    'raw_score'     => $pointsTaken,
+                    'percentage'    => $percentage,
+                    'is_passed'     => $hasPassed
+                ]);
+            }
+
+            DB::table('lesson_progress')->updateOrInsert(
+                ['user_id' => $user->id, 'lesson_id' => $lessonId],
+                [
+                    'is_completed' => true,
+                    'completed_at' => now(),
+                    'updated_at'   => now()
+                ]
+            );
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Gradebook persistence secured and lesson marked complete.',
+                'data' => [
+                    'student' => $user->email,
+                    'final_percentage' => $percentage . '%',
+                    'passed' => $hasPassed,
+                    'lesson_status' => 'Completed'
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Persistence Error: ' . $e->getMessage());
+          //  return response()->json(['error' => 'Failed to save data. Database integrity maintained.'], 500);
+            return response()->json([
+            'error' => 'Database Error',
+            'message' => $e->getMessage() 
+        ], 500);
+            }
+        }
 }
