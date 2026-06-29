@@ -7,22 +7,38 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Grade;
+use App\Models\SyncLog;
 use Illuminate\Support\Facades\DB; 
 
 class KahootSyncController extends Controller
 {
     public function sync(Request $request)
     {
-        Log::info('Kahoot Data Received:', $request->all());
+        $payload = $request->all();
 
         if (!$request->has(['email', 'score', 'max_points', 'lesson_id'])) {
+            SyncLog::create([
+                'source' => 'Kahoot',
+                'payload' => $payload,
+                'status' => 'Fail',
+                'error_message' => 'Missing required fields in request.'
+            ]);
+
             return response()->json([
                 'error' => 'Missing required fields: email, score, max_points, and lesson_id are mandatory.'
             ], 400);
         }
 
         $user = User::where('email', $request->email)->first();
+        
         if(!$user){
+            SyncLog::create([
+                'source' => 'Kahoot',
+                'payload' => $payload,
+                'status' => 'Fail',
+                'error_message' => 'Student with email ' . $request->email . ' not found.'
+            ]);
+
             return response()->json(['error' => 'Student was not found'], 404);
         }
 
@@ -74,6 +90,12 @@ class KahootSyncController extends Controller
 
             DB::commit();
 
+            SyncLog::create([
+                'source' => 'Kahoot',
+                'payload' => $payload,
+                'status' => 'Success'
+            ]);
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Gradebook persistence secured and lesson marked complete.',
@@ -87,12 +109,20 @@ class KahootSyncController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            
+            SyncLog::create([
+                'source' => 'Kahoot',
+                'payload' => $payload,
+                'status' => 'Fail',
+                'error_message' => 'Database/System Error: ' . $e->getMessage()
+            ]);
+
             Log::error('Persistence Error: ' . $e->getMessage());
-          //  return response()->json(['error' => 'Failed to save data. Database integrity maintained.'], 500);
+            
             return response()->json([
-            'error' => 'Database Error',
-            'message' => $e->getMessage() 
-        ], 500);
-            }
+                'error' => 'Database Error',
+                'message' => $e->getMessage() 
+            ], 500);
         }
+    }
 }
