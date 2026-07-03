@@ -9,5 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['emertimi', 'pershkrimi'];
+    protected $fillable = ['emertimi', 'pershkrimi', 'slug', 'icon'];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
