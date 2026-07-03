@@ -9,15 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void{
-        Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('titulli');
-            $table->text('pershkrimi')->nullable();
-            $table->decimal('cmimi', 10, 2)->default(0.00);
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
-            $table->foreignId('instructor_id')->nullable()->constrained('staff', 'user_id')->onDelete('set null');
-            $table->timestamps();
+    public function up(): void
+    {
+        Schema::table('courses', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('titulli');
+            $table->string('thumbnail')->nullable()->after('cmimi');
+            $table->string('level')->default('Beginner')->after('thumbnail');
+            $table->index(['slug', 'titulli']); // Indexing for search
         });
     }
     

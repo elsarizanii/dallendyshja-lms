@@ -4,14 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Course extends Model {    
     
     use HasFactory; 
 
-    public $timestamps = false;
+    public $timestamps = true; 
 
-    protected $fillable = ['titulli', 'pershkrimi', 'cmimi', 'category_id', 'instructor_id'];
+    protected $fillable = [
+        'titulli', 'slug', 'pershkrimi', 'cmimi', 
+        'thumbnail', 'level', 'category_id', 'instructor_id'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($course) {
+            if (empty($course->slug)) {
+                $course->slug = Str::slug($course->titulli);
+            }
+        });
+    }
 
     public function category() {
         return $this->belongsTo(Category::class);
@@ -25,4 +40,3 @@ class Course extends Model {
         return $this->hasMany(Lesson::class);
     }
 }
-

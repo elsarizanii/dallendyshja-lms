@@ -9,21 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-       public function up(): void
+    public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('slug')->nullable()->after('emertimi'); 
-            $table->string('icon')->nullable()->after('slug');
-            $table->index('slug');
+            //
         });
-    };
-}
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('categories', function (Blueprint $table) {
+            //
+        });
     }
 };
