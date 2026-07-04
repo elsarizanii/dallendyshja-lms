@@ -15,16 +15,16 @@ class CourseFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     public function definition(): array
     {
         return [
             'titulli' => $this->faker->sentence(3),
             'pershkrimi' => $this->faker->paragraph(),
-            'cmimi' => $this->faker->randomFloat(2, 50, 200),
+            'cmimi' => $this->faker->randomFloat(2, 10, 200), 
+            'niveli' => $this->faker->randomElement(['Beginner', 'Intermediate', 'Advanced']), 
+            
             'category_id' => \App\Models\Category::factory(),
             'instructor_id' => \App\Models\User::factory(),
         ];
     }
-
 }

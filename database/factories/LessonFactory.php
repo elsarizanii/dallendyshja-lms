@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Category>
+ * @extends Factory<Lesson>
  */
-class CategoryFactory extends Factory
+class LessonFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,10 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name' => $this->faker->unique()->word(),
+       return [
+            'course_id' => Course::factory(),
+            'title' => $this->faker->sentence(5),
+            'content' => $this->faker->text(500),
         ];
     }
 }
