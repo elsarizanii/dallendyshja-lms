@@ -8,6 +8,7 @@ use App\Models\Room;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\Inventory;
+use App\Models\Lesson;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,11 +54,23 @@ class DatabaseSeeder extends Seeder
 
     \App\Models\Inventory::factory(20)->create();
 
-    $category = \App\Models\Category::firstOrCreate(['emertimi' => 'Backend']);
-    
-    \App\Models\Course::factory(10)->create([
-        'category_id' => $category->id,
-        'instructor_id' => $staff->id
-    ]);
+    $categoryNames = ['Programming', 'Design', 'Marketing', 'Language'];
+
+    foreach ($categoryNames as $emertimi) {
+        $category = \App\Models\Category::firstOrCreate(['emertimi' => $emertimi]);
+
+        \App\Models\Course::factory(15)
+            ->create([
+                'category_id' => $category->id,
+                'instructor_id' => $staff->id
+            ])
+            ->each(function ($course) {
+                \App\Models\Lesson::factory(rand(5, 10))->create([
+                    'course_id' => $course->id
+                ]);
+            });
+    }
+
+    echo "Categories, Courses, and nested Lessons seeded successfully! \n";
 }
 }
