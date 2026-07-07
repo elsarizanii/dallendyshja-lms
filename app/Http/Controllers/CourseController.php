@@ -3,13 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use Illuminate\Http\Request;
+use App\Http\Requests\CourseSearchRequest;
+use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
-    public function index()
+   /**
+     * @param CourseSearchRequest $request
+     * @return JsonResponse
+     */
+    public function index(CourseSearchRequest $request): JsonResponse
     {
-        $kurset = Course::all();
-        return view('courses.index', ['kurset' => $kurset]);
+        $query = Course::with('category');
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('title', 'ILIKE', '%' . $searchTerm . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->input('category'));
+        }
+
+        $courses = $query->latest()->paginate(12);
+
+        return response()->json($courses, 200);
     }
 }
