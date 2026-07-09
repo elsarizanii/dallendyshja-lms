@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Http\Requests\CourseSearchRequest;
-use Illuminate\Http\JsonResponse;
+// Change JsonResponse to standard Response/View types
+use Illuminate\Contracts\View\View; 
 
 class CourseController extends Controller
 {
-   /**
+    /**
      * @param CourseSearchRequest $request
-     * @return JsonResponse
+     * @return View
      */
-    public function index(CourseSearchRequest $request): JsonResponse
+    public function index(CourseSearchRequest $request): View
     {
         $query = Course::with('category');
 
@@ -25,8 +26,8 @@ class CourseController extends Controller
             $query->where('category_id', $request->input('category'));
         }
 
-        $courses = $query->latest()->paginate(12);
-
-        return response()->json($courses, 200);
+        $kurset = $query->latest()->paginate(12);
+        
+        return view('courses.index', compact('kurset'));
     }
 }
