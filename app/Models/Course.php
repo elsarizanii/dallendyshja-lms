@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 
-class Course extends Model {    
+class Course extends Model {     
     
-    use HasFactory; 
+    use HasFactory, HasSlug;
 
     public $timestamps = true; 
 
@@ -16,17 +16,6 @@ class Course extends Model {
         'titulli', 'slug', 'pershkrimi', 'cmimi', 
         'thumbnail', 'level', 'category_id', 'instructor_id'
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($course) {
-            if (empty($course->slug)) {
-                $course->slug = Str::slug($course->titulli);
-            }
-        });
-    }
 
     public function category() {
         return $this->belongsTo(Category::class);

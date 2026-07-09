@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('icon')->nullable()->after('slug');
             $table->index('slug');
         });
-    };
-}
+    }
 
     /**
      * Reverse the migrations.
