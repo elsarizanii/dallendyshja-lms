@@ -31,15 +31,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/elsarizanii/scantech-academy.git"
+        "url": "git+https://github.com/elsarizanii/dallendyshja-lms.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/elsarizanii/scantech-academy/issues"
+        "url": "https://github.com/elsarizanii/dallendyshja-lms/issues"
     },
-    "homepage": "https://github.com/elsarizanii/scantech-academy#readme",
+    "homepage": "https://github.com/elsarizanii/dallendyshja-lms#readme",
     "dependencies": {
         "flowbite": "^4.0.2"
     }
