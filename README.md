@@ -1,58 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dallendyshja LMS
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Mire se vini ne ekip! Ky eshte nje Learning Management System full-stack i ndertuar me PHP Laravel, React.js, dhe PostgreSQL. 
 
-## About Laravel
+## E RENDESISHME!: TypeScript Migration Update
+Ne menyre qe te permiresojme kualitetin e kodit dhe te parandalojme runtime errors, komponentet e front-endit do t'i migrojme nga JavaScript ne TypeScript.
+* Ju lutem shkruani te gjithe componentet e ri te React-it si: '.tsx' ose '.ts' ne vend te: '.jsx'.
+* Sigurohuni qe te percaktoni blloqe te qarta 'interface' per komponentet e ndryshme dhe API response objects.
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Setup lokal i projektit
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ndjekni keta hapa ne menyre qe aplikacioni te jete running lokalisht ne kompjuteret/laptopat e juaj:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Kushtet paraprake
+Sigurohuni qe mjeti/device me te cilin do te punoni i ka keto instalime globale:
+* PHP (Version 8.2 ose v. me te larte)
+* Composer
+* Node.js & npm
+* PostgreSQL
 
-## Learning Laravel
+### 2. Instalimet backend (Laravel API)
+1. Hape terminal-in dhe navigo te project root directory.
+2. Instalo backend PHP dependencies:
+   ```bash
+   composer install
+   ```
+3. Copy the template environment configuration file:
+   ```bash
+   cp .env.example .env
+   ```
+4. Gjeneroni celesin tuaj unik te enkriptimit te sigurt per kete aplikacion:
+   ```bash
+   php artisan key:generate
+   ```
+5. Hapni skedarin '.env' ne VS Code dhe perditesoni konfigurimin e databazes qe tr perputhet me kredencialet tuaja lokale te PostgreSQL ('DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD').
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+6. Beji run migrimet e databazes per me i ndertu tabelat lokale:
+   ```bash
+   php artisan migrate
+   ```
+7. Filloni serverin tuaj lokal te backend-it per zhvillim:
+   ```bash
+   php artisan serve
+   ```
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Instalimet frontend (React + TypeScript)
+1. Open a new terminal tab and navigate into your frontend directory:
+1. Hapni nje terminal tab te re dhe navigoni te frontend directory e juaj:
+   ```bash
+   cd frontend
+   ```
+2. Instaloni frontend Node packages dhe perkufizimet(definitions) e kerkuara te tipeve per TypeScript:
+   ```bash
+   npm install
+   ```
+3. Aktivizo serverin lokal te web-it per React:
+   ```bash
+   npm start
+   ```
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Ekipi jone i inxhinierisë dhe rrjedha e Punes
+Ne funksionojme si nje ekip Agile nder-funksional. Edhe pse anetaret e ekipit marrin pergjegjesine e perkohshme per "epics" specifike, te gjithe kontribuojnë ne te gjitha nivelet e stack-ut teknologjik (zhvillimi i API-ve me Laravel, dizajni i nderfaqes me React, integrimi i TypeScript dhe testimet e automatizuara) per te nxitur mesimin reciprok dhe njohjen e kodit nga të gjithe.
