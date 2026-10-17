@@ -25,6 +25,16 @@
                     </div>
                 @endif
             </div>
+            {{-- //scrum-212 test --}}
+            <div>
+                @if (Route::has('register'))
+                    <div>
+                        @guest
+                           <a href="{{url('register') }} "class="font-semibold text-gray-600 hover:text-blue-600 focus:outline focus:outline-2 focus:rounded-sm focus:outline-blue-500">Register link is here</a>
+                        @endguest
+                    </div>
+                @endif
+            </div>
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8 text-center">
                 <div class="flex justify-center">
