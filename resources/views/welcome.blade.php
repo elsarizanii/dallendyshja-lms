@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Scantech Academy</title>
+        <title>Dallendyshja LMS</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -25,10 +25,20 @@
                     </div>
                 @endif
             </div>
+            {{-- //scrum-212 test --}}
+            <div>
+                @if (Route::has('register'))
+                    <div>
+                        @guest
+                           <a href="{{url('register') }} "class="font-semibold text-gray-600 hover:text-blue-600 focus:outline focus:outline-2 focus:rounded-sm focus:outline-blue-500">Register link is here</a>
+                        @endguest
+                    </div>
+                @endif
+            </div>
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8 text-center">
                 <div class="flex justify-center">
-                    <h1 class="text-5xl font-bold text-blue-600">Scantech Academy</h1>
+                    <h1 class="text-5xl font-bold text-blue-600">Dallendyshja LMS</h1>
                 </div>
 
                 <div class="mt-8 text-xl text-gray-600">
@@ -51,7 +61,7 @@
             </div>
 
             <div class="absolute bottom-0 w-full p-6 text-center text-gray-400 text-sm">
-                &copy; {{ date('Y') }} Scantech Academy LMS
+                &copy; {{ date('Y') }} Dallendyshja LMS
             </div>
         </div>
     </body>
