@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\InventoryController;
+//use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SyncLogController;
@@ -26,7 +26,7 @@ use App\Http\Controllers\Auth\Register;
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+    //    Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
         Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
         Route::get('/admin/sync-logs', [SyncLogController::class, 'index'])->name('admin.sync-logs');
     });
