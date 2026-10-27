@@ -1,65 +1,61 @@
-# Dallendyshja LMS
+# Dallëndyshja LMS
 
-Mire se vini ne ekip! Ky eshte nje Learning Management System full-stack i ndertuar me PHP Laravel, React.js, dhe PostgreSQL. 
+**A full-stack Learning Management System for schools — built with Laravel, React (TypeScript), and PostgreSQL.**
 
-## E RENDESISHME!: TypeScript Migration Update
-Ne menyre qe te permiresojme kualitetin e kodit dhe te parandalojme runtime errors, komponentet e front-endit do t'i migrojme nga JavaScript ne TypeScript.
-* Ju lutem shkruani te gjithe componentet e ri te React-it si: '.tsx' ose '.ts' ne vend te: '.jsx'.
-* Sigurohuni qe te percaktoni blloqe te qarta 'interface' per komponentet e ndryshme dhe API response objects.
----
+Dallëndyshja is a multi-role LMS that connects admins, instructors, students, and parents in one platform. It handles course management, lesson delivery, assignment grading, and parent-side progress tracking — with role-based access control (RBAC) and JWT authentication securing every layer.
 
-## Setup lokal i projektit
-
-Ndjekni keta hapa ne menyre qe aplikacioni te jete running lokalisht ne kompjuteret/laptopat e juaj:
-
-### 1. Kushtet paraprake
-Sigurohuni qe mjeti/device me te cilin do te punoni i ka keto instalime globale:
-* PHP (Version 8.2 ose v. me te larte)
-* Composer
-* Node.js & npm
-* PostgreSQL
-
-### 2. Instalimet backend (Laravel API)
-1. Hape terminal-in dhe navigo te project root directory.
-2. Instalo backend PHP dependencies:
-   ```bash
-   composer install
-   ```
-3. Copy the template environment configuration file:
-   ```bash
-   cp .env.example .env
-   ```
-4. Gjeneroni celesin tuaj unik te enkriptimit te sigurt per kete aplikacion:
-   ```bash
-   php artisan key:generate
-   ```
-5. Hapni skedarin '.env' ne VS Code dhe perditesoni konfigurimin e databazes qe tr perputhet me kredencialet tuaja lokale te PostgreSQL ('DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD').
-
-6. Beji run migrimet e databazes per me i ndertu tabelat lokale:
-   ```bash
-   php artisan migrate
-   ```
-7. Filloni serverin tuaj lokal te backend-it per zhvillim:
-   ```bash
-   php artisan serve
-   ```
-
-### 3. Instalimet frontend (React + TypeScript)
-1. Open a new terminal tab and navigate into your frontend directory:
-1. Hapni nje terminal tab te re dhe navigoni te frontend directory e juaj:
-   ```bash
-   cd frontend
-   ```
-2. Instaloni frontend Node packages dhe perkufizimet(definitions) e kerkuara te tipeve per TypeScript:
-   ```bash
-   npm install
-   ```
-3. Aktivizo serverin lokal te web-it per React:
-   ```bash
-   npm start
-   ```
+Started as a team project under Agile/Scrum and now developed and maintained solo — covering the database schema, Laravel REST API, and React + TypeScript frontend end to end.
 
 ---
 
-## Ekipi jone i inxhinierisë dhe rrjedha e Punes
-Ne funksionojme si nje ekip Agile nder-funksional. Edhe pse anetaret e ekipit marrin pergjegjesine e perkohshme per "epics" specifike, te gjithe kontribuojnë ne te gjitha nivelet e stack-ut teknologjik (zhvillimi i API-ve me Laravel, dizajni i nderfaqes me React, integrimi i TypeScript dhe testimet e automatizuara) per te nxitur mesimin reciprok dhe njohjen e kodit nga të gjithe.
+## Why it's interesting
+
+- **Four distinct user roles** (Admin, Instructor, Student, Parent) — each with its own permissions, dashboard, and workflow, enforced through RBAC.
+- **Full-stack ownership** — REST APIs in Laravel + PostgreSQL on the backend, a component-driven React frontend with TypeScript interfaces for every API response.
+- **Real school workflow** — course catalog, assignment submission portal, grading, and a dedicated parent tracking dashboard.
+- **Led and continued** — took over as project lead and kept the project moving through sprints after the original team dispersed, tracked in Jira with a shared Git workflow.
+
+---
+
+## Tech stack
+
+| Layer | Stack |
+|---|---|
+| Frontend | React.js, TypeScript, Tailwind CSS |
+| Backend | PHP Laravel, REST APIs |
+| Database | PostgreSQL |
+| Auth & security | JWT, RBAC, password hashing, input validation |
+| Tooling | Git, GitHub, Jira, Agile/Scrum |
+
+---
+
+## Architecture
+
+Three-tier client–server architecture:
+
+- **Frontend (React + TypeScript)** — typed components and `interface` definitions for API responses, reducing runtime errors.
+- **Backend (Laravel)** — modular REST API with role-aware endpoints for courses, lessons, assignments, and users.
+- **Database (PostgreSQL)** — relational schema for users, roles, courses, lessons, enrollments, and submissions.
+
+---
+
+## Running locally
+
+**Prerequisites:** PHP 8.2+, Composer, Node.js + npm, PostgreSQL
+
+**Backend**
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+# set DB_DATABASE, DB_USERNAME, DB_PASSWORD in .env
+php artisan migrate
+php artisan serve
+```
+
+**Frontend**
+```bash
+cd frontend
+npm install
+npm start
+```
