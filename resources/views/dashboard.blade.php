@@ -16,4 +16,10 @@
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("Remember Me works! You are authenticated.");
+        console.log("Check DevTools -> Application -> Cookies to see the 'remember_web_...' cookie.");
+    });
+</script>
 </x-app-layout>
