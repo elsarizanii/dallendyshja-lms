@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'LMS Dashboard') - Scantech Academy</title>
+    <title>@yield('title', 'LMS Dashboard') - Dallendyshja LMS</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -14,8 +14,8 @@
         <!-- Mobile Header -->
         <header class="flex md:hidden items-center justify-between h-16 px-4 bg-slate-950 text-white border-b border-slate-800 shrink-0">
             <div class="flex items-center font-bold tracking-wider text-sm">
-                <div class="w-6 h-6 rounded bg-blue-600 mr-2 flex items-center justify-center text-xs">ST</div>
-                SCANTECH ACADEMY
+                <div class="w-6 h-6 rounded bg-blue-600 mr-2 flex items-center justify-center text-xs">DLMS</div>
+                Dallendyshja LMS
             </div>
             <button id="mobile-menu-open" class="p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,8 +39,8 @@
                 </div>
 
                 <div class="flex items-center h-16 px-6 bg-slate-950 border-b border-slate-800 text-white font-bold tracking-wider text-sm shrink-0">
-                    <div class="w-6 h-6 rounded bg-blue-600 mr-2 flex items-center justify-center text-xs">ST</div>
-                    SCANTECH ACADEMY
+                    <div class="w-6 h-6 rounded bg-blue-600 mr-2 flex items-center justify-center text-xs">DLMS</div>
+                    Dallendyshja LMS
                 </div>
 
                 <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1.5">
@@ -77,8 +77,8 @@
         <!-- Desktop Sidebar -->
         <aside id="main-sidebar" class="hidden md:flex md:flex-shrink-0 w-64 bg-slate-900 flex-col border-r border-slate-800 transition-all duration-300">
             <div class="flex items-center h-16 px-6 bg-slate-950 border-b border-slate-800 text-white font-bold tracking-wider text-sm shrink-0">
-                <div class="w-6 h-6 rounded bg-blue-600 mr-2 flex items-center justify-center text-xs">ST</div>
-                SCANTECH ACADEMY
+                <div class="w-6 h-6 rounded bg-blue-600 mr-2 flex items-center justify-center text-xs">DLMS</div>
+                Dallendyshja LMS
             </div>
 
             <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1.5">
@@ -129,10 +129,16 @@
                             </div>
                         @endauth
                     </div>
+                    
                     @auth
-                        <a href="/profile" class="p-1.5 rounded-md text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-colors">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" class="p-1.5 rounded-md text-slate-500 hover:text-red-400 hover:bg-slate-800 transition-colors" title="Log Out">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                            </button>
+                        </form>
                     @endauth
                 </div>
             </div>
