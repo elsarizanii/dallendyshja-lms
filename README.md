@@ -31,7 +31,7 @@ Started as a team project under Agile/Scrum and now developed and maintained sol
 
 ## Architecture
 
-Three-tier client–server architecture:
+Three-tier client-server architecture:
 
 - **Frontend (React + TypeScript)** - typed components and `interface` definitions for API responses, reducing runtime errors.
 - **Backend (Laravel)** - modular REST API with role-aware endpoints for courses, lessons, assignments, and users.
