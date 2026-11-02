@@ -30,5 +30,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reading_logs');
+        //action_column_from_table. in terminal
     }
 };
